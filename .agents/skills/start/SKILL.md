@@ -22,6 +22,12 @@ description: 회사별 Penpot 레퍼런스의 브랜드 정체성을 보존하�
 $start prd_path=docs/examples/daangn-stock.md work_page=황선태 reference_pages=[{name:"1-daangn",role:"primary"}]
 ```
 
+## 승계 규칙 문서
+
+`docs/brand-inheritance.md`는 이 하네스의 브랜드 판단 기준이며 값이 아니라 원칙만 담는다.
+2단계가 슬롯·브랜드색 밀도·구조 배타 규칙을 실측하고, 3단계가 신규 도메인을 알고 나서 ①보존 ②슬롯 승계 ③금지 ④신규 문법으로 판별하며, 4·5단계가 자리·정렬·줄 수와 실측 범위를 강제하고, 6·7단계가 감사한다. 모든 sub-agent 호출에 이 경로를 전달한다.
+PRD가 바뀌어도 이 문서는 바뀌지 않는다. 값은 매 실행마다 레퍼런스 Page에서 실측한다.
+
 ## 실행 전 게이트
 
 1. PRD와 `work_page`를 확인한다. Page 이름을 추측하거나 첫 Page를 기본 선택하지 않는다.
@@ -60,10 +66,10 @@ $start prd_path=docs/examples/daangn-stock.md work_page=황선태 reference_page
 | handoff | 필수 identity | 최소 계보 증거 |
 |---|---|---|
 | 1 → 3 | 01의 `run_id/prd_path/work_page/artifact_dir` 일치 | 모든 `REQ-NN`, `Screen candidates`, `Open questions` |
-| 2 → 3 | 02의 `run_id/reference_pages/work_page/artifact_dir` 일치 | 적어도 하나의 `REF-NN`; `signature/preserve` 및 shell/mechanism은 `REF-NN` 또는 `unresolved` |
-| 3 → 4 | 01·02와 03의 identity 일치 | 모든 `REQ-NN` coverage, 각 주요 `DEC-NN`, 필요한 `NEW-NN`·`MECH-NN` |
-| 4 → 5 | 03과 04의 identity 일치 | 모든 board, component, token 결정이 `DEC-NN` 또는 `NEW-NN`에 연결 |
-| 5 → 6 | 01~04와 05의 identity 일치 | 모든 expected frame node ID와 `REQ/REF/NEW/MECH/DEC` node lineage |
+| 2 → 3 | 02의 `run_id/reference_pages/work_page/artifact_dir` 일치 | 적어도 하나의 `REF-NN`; `signature/preserve` 및 shell/mechanism은 `REF-NN` 또는 `unresolved`; 비어 있지 않은 `SLOT-NN`, `SRULE-NN`, `Brand color density` |
+| 3 → 4 | 01·02와 03의 identity 일치 | 모든 `REQ-NN` coverage, 각 주요 `DEC-NN`, 필요한 `NEW-NN`·`MECH-NN`; 모든 `SLOT-NN`이 `INH-NN`으로 ①②③④ 분류됨; 화면당 `④` ≤ 2 |
+| 4 → 5 | 03과 04의 identity 일치 | 모든 board, component, token 결정이 `DEC-NN` 또는 `NEW-NN`에 연결; 모든 `②`가 `Slot fidelity spec`에 있고 `Preservation budget`에 범위 이탈 없음 |
+| 5 → 6 | 01~04와 05의 identity 일치 | 모든 expected frame node ID와 `REQ/REF/NEW/MECH/DEC/INH` node lineage |
 | 6 → 7 | 01~05와 06의 identity 일치 | blocker=0, major=0, 재-export 증거 |
 
 `OPEN-NN`이 blocking이면 숫자·정책·콘텐츠를 예시값으로 채워 진행할 수 없다. 사용자가 명시적으로 prototype assumption을 승인한 경우에만 1단계 산출물에 해당 결정과 수용 범위를 기록한 뒤, 그 결정에 연결된 `NEW-NN`으로 후속 단계에 전달한다.
@@ -74,10 +80,11 @@ $start prd_path=docs/examples/daangn-stock.md work_page=황선태 reference_page
 
 - `REQ-NN → 화면/상태 → Penpot 노드`: 신규 PRD 충족
 - `REF-NN → DEC-NN → 토큰·컴포넌트·노드`: 회사 정체성 계승
+- `SLOT-NN → INH-NN → 분류 → 노드`: 원본의 모든 자리가 승계·금지·신규 중 하나로 판정됨
 - `MECH-NN → DEC-NN → 화면·제어·노드`: 회사 고유의 탐색·판단 메커니즘 전이
 - `NEW-NN → DEC-NN → 토큰·컴포넌트·노드`: 레퍼런스에 없던 해법의 타당성
 
-레퍼런스의 기존 사업 개체·카피·정보구조를 새 PRD에 그대로 복제하지 않는다. 반대로 로고색만 바꾼 범용 UI가 되지 않도록 식별력 높은 `REF-NN`을 실제 화면에 적용한다.
+레퍼런스의 기존 사업 개체·카피·정보구조를 새 PRD에 그대로 복제하지 않는다. 반대로 로고색만 바꾼 범용 UI가 되지 않도록 식별력 높은 `REF-NN`을 실제 화면에 적용한다. 두 실패를 동시에 피하는 기준이 `docs/brand-inheritance.md`의 판별 테스트이며, 판정되지 않고 남은 원본 요소가 있으면 그 실행은 레퍼런스를 다 읽지 않은 것이다.
 
 ## 실패 라우팅과 재실행
 
@@ -102,5 +109,7 @@ $start prd_path=docs/examples/daangn-stock.md work_page=황선태 reference_page
 - 신규 PRD의 모든 요구와 상태가 실제 노드에 매핑된다.
 - primary 회사의 핵심 브랜드 특징이 근거와 함께 보존된다.
 - primary에서 관찰된 상태바·브랜드 앵커·하단 내비게이션 같은 shell과 핵심 탐색 메커니즘이 `preserve`, `translate`, `avoid`, `unresolved` 중 하나로 판정되고 실제 화면에 추적된다.
+- 2단계가 추출한 모든 `SLOT-NN`이 3단계에서 ①②③④ 중 하나로 판정됐고 미분류가 없다.
+- 화면당 `④` 신규 문법이 2개를 넘지 않으며(목표 1개), 각 `④`가 기존 부품 조합으로 증명된다.
 - 원본 사업의 의미를 베낀 흔적이나 supplemental 브랜드 혼입이 없다.
 - 모든 최종 프레임을 `export_shape`로 확인했고 `99-verify.md`가 PASS다.

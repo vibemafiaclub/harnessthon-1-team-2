@@ -26,13 +26,15 @@ description: 근거가 연결된 브랜드 적응형 UI 블루프린트를 지�
 4. 컴포넌트 이름에 `run_id` 기반 고유 프리픽스와 의미 기반 이름을 처음부터 사용한다.
 5. 반복 UI는 컴포넌트 인스턴스로 만들고 인스턴스 채움은 Penpot 형식 `{fillColor, fillOpacity}`을 사용한다.
 6. foundation, **brand shell**, signature, 신규 기능 컴포넌트 순으로 작은 배치로 저작한다. 블루프린트가 요구하면 primary 레퍼런스의 상태바 구조를 clone/recreate하고, 브랜드 앵커·하단 내비게이션을 재사용 컴포넌트로 먼저 만든다. 임의의 시간·와이파이·배터리 텍스트로 status bar를 흉내 내지 않는다.
-7. 각 주요 노드가 `REQ-NN`, `REF-NN`, `NEW-NN` 중 무엇을 구현하는지 로그에 연결한다.
-8. 비-Auto Layout 부모의 자식은 절대 좌표를 다시 설정한다. Auto Layout 축·사이징은 블루프린트를 따른다.
-9. 가변 텍스트는 `growType="auto-height"`, 가변 칸은 고정 폭과 정렬을 사용한다. 하단 고정 요소의 Spacer는 계산값을 쓴다.
-10. 실제 이미지가 필요하면 `penpot.uploadMediaUrl`을 사용하고 실패 시 지정 fallback을 적용한다. 탐색 메커니즘이 지도/위치라면 사용자 안전 경계에 맞는 범위·클러스터·가명화 표현을 사용한다.
-11. 각 화면 또는 의미 있는 배치 뒤 `export_shape` PNG를 확인해 정렬·잘림·빈 렌더링을 수정한다. 빈 것처럼 보이면 안정화 후 재-export한다.
-12. 마지막에 auto-height 텍스트를 resize하고 모든 최종 프레임을 다시 export한다.
-13. 원본 사업 콘텐츠 복제, supplemental 스타일 혼입, signature 누락을 자체 점검한다. Shell과 `MECH-NN`이 요구된 화면에서는 상태바·브랜드 앵커·하단 내비게이션·검색/필터·지도/리스트 전이 중 해당 항목의 노드와 열린/적용 상태를 로그에 남긴다.
+7. 각 주요 노드가 `REQ-NN`, `REF-NN`, `NEW-NN`, `INH-NN` 중 무엇을 구현하는지 로그에 연결한다.
+8. **04의 `Slot fidelity spec`을 그대로 저작한다.** 승계한 슬롯의 자리·정렬·줄 수를 임의로 바꾸지 않는다. 내용이 짧아도 명세된 줄 수를 채우고, 명세가 `fixed_width`와 우측 정렬을 요구하면 hug로 대체하지 않는다. 저작 중 자리가 안 맞으면 슬롯을 옮기지 말고 `Deviations`에 남긴다.
+9. **04의 `Preservation budget`을 넘지 않는다.** 명세에 없는 타이포 weight를 쓰지 않고, 브랜드색은 허용된 위치에만 적용한다. 여백이 비어 보인다는 이유로 면을 브랜드색으로 채우지 않는다.
+10. 비-Auto Layout 부모의 자식은 절대 좌표를 다시 설정한다. Auto Layout 축·사이징은 블루프린트를 따른다.
+11. 가변 텍스트는 `growType="auto-height"`, 가변 칸은 고정 폭과 정렬을 사용한다. 하단 고정 요소의 Spacer는 계산값을 쓴다.
+12. 실제 이미지가 필요하면 `penpot.uploadMediaUrl`을 사용하고 실패 시 지정 fallback을 적용한다. 탐색 메커니즘이 지도/위치라면 사용자 안전 경계에 맞는 범위·클러스터·가명화 표현을 사용한다.
+13. 각 화면 또는 의미 있는 배치 뒤 `export_shape` PNG를 확인해 정렬·잘림·빈 렌더링을 수정한다. 빈 것처럼 보이면 안정화 후 재-export한다.
+14. 마지막에 auto-height 텍스트를 resize하고 모든 최종 프레임을 다시 export한다.
+15. 원본 사업 콘텐츠 복제, supplemental 스타일 혼입, signature 누락을 자체 점검한다. Shell과 `MECH-NN`이 요구된 화면에서는 상태바·브랜드 앵커·하단 내비게이션·검색/필터·지도/리스트 전이 중 해당 항목의 노드와 열린/적용 상태를 로그에 남긴다.
 
 ## 재실행 reconciliation
 
@@ -56,7 +58,10 @@ description: 근거가 연결된 브랜드 적응형 UI 블루프린트를 지�
 | frame_name | node_id | requirement_ids | signature_ref_ids | mechanism_ids | decision_ids | export_checked | issues_fixed |
 
 ## Node lineage
-| node_id | node_name | requirement_ids | ref_ids | mechanism_ids | new_ids | decision_ids |
+| node_id | node_name | requirement_ids | ref_ids | mechanism_ids | new_ids | inheritance_ids | decision_ids |
+
+## Slot fidelity log
+| inh_id | slot_id | frame_name | node_id | position_as_specified | line_count_as_specified | sizing_mode | deviation |
 
 ## Deviations
 | blueprint_item | actual | reason | impact | lineage_preserved |
@@ -78,4 +83,6 @@ description: 근거가 연결된 브랜드 적응형 UI 블루프린트를 지�
 - 생성한 컴포넌트 rename·자식 remove
 - `figma.variables`에 토큰 보존을 의존
 - 원본 사업 화면을 복제한 뒤 텍스트만 교체
+- 04 `Slot fidelity spec`의 자리·정렬·줄 수를 저작 편의로 변경
+- 04 `Preservation budget` 밖의 weight 사용 또는 허용되지 않은 위치의 브랜드색 적용
 - 다른 단계 산출물 수정

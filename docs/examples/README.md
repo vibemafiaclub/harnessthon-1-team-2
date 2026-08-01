@@ -10,10 +10,11 @@
 
 ## 쓰는 법
 
-하네스를 돌려볼 때 둘 중 하나를 `docs/PRD.md`에 복사해 넣고 `/start` 를 실행합니다.
+PRD와 primary 레퍼런스를 명시해 실행합니다. 실행별 산출물은 서로 다른 `run_id` 디렉터리에 저장됩니다.
 
-```bash
-cp docs/examples/daangn-stock.md docs/PRD.md
+```text
+$start prd_path=docs/examples/daangn-stock.md work_page=황선태 reference_pages=[{name:"1-daangn",role:"primary"}]
+$start prd_path=docs/examples/airbnb-dating.md work_page=황선태 reference_pages=[{name:"2-airbnb",role:"primary"}]
 ```
 
 **두 개를 다 돌려보세요.** 하나에서만 돌아가는 하네스는 심사용 PRD에서 무너집니다.

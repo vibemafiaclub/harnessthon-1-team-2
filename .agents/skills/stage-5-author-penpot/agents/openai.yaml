@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brand-Adapted Penpot Authoring"
+  short_description: "Author traced, component-based UI on a named Penpot page"
+  default_prompt: "Use $stage-5-author-penpot to author the evidence-based blueprint on the named Penpot work page."

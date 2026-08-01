@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Requirement Contract"
+  short_description: "Turn any PRD into traceable product and state contracts"
+  default_prompt: "Use $stage-1-analyze-prd to convert the selected PRD into a traceable product requirement contract."

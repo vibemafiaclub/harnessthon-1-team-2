@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brand-Adapted Experience"
+  short_description: "Design new-product flows while preserving brand character"
+  default_prompt: "Use $stage-3-architect-experience to architect a brand-adapted experience from the PRD and reference evidence."

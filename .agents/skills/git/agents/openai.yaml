@@ -1,0 +1,4 @@
+interface:
+  display_name: "Save Team Work"
+  short_description: "변경 내용을 확인받아 main에 커밋하고 푸시"
+  default_prompt: "Use $git to review, commit, and push the current team work."

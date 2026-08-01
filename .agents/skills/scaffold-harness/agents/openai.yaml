@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scaffold Harness"
+  short_description: "확정된 단계로 프로젝트용 Codex 하네스 초안을 생성"
+  default_prompt: "Use $scaffold-harness to generate the agreed Codex harness stages."

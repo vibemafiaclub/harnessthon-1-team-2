@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brand Reference Forensics"
+  short_description: "Extract evidence-based brand DNA and transfer boundaries"
+  default_prompt: "Use $stage-2-audit-reference to audit the primary and supplemental Penpot references without modifying them."

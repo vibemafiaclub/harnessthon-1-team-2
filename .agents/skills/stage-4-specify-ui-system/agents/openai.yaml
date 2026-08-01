@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence-Based UI System"
+  short_description: "Specify build-ready UI decisions with source provenance"
+  default_prompt: "Use $stage-4-specify-ui-system to produce an evidence-based, build-ready UI blueprint."

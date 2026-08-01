@@ -1,0 +1,4 @@
+interface:
+  display_name: "Brand Adaptation Verification"
+  short_description: "Verify requirement, reference, decision, structure, and PNG proof"
+  default_prompt: "Use $stage-verify-penpot to verify all requirement, brand, novel-decision, structure, and export evidence."

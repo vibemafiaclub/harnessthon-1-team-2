@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dual-Axis Design QA"
+  short_description: "Fix PRD-fit and brand-fidelity defects independently"
+  default_prompt: "Use $stage-6-critique-fix to critique and fix the design for both PRD fit and brand fidelity."

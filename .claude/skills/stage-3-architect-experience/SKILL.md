@@ -5,4 +5,4 @@ description: Claude Code 호환 진입점. PRD 계약과 브랜드 근거를 UX 
 
 # Compatibility Entry Point
 
-실행 전에 `.agents/skills/stage-3-architect-experience/SKILL.md`를 끝까지 읽고 그대로 따른다. handoff identity가 불일치하면 산출물을 만들지 않고 중단한다.
+실행 전에 `.agents/skills/stage-3-architect-experience/SKILL.md`를 끝까지 읽고 그대로 따른다. `REQ/REF/ASM` 계보와 P0~P3 우선순위를 소비해 UX 결정을 만들며, handoff identity가 불일치하면 산출물을 만들지 않고 중단한다.

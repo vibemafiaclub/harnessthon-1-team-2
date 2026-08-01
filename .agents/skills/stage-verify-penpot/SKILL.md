@@ -23,12 +23,13 @@ description: 실행별 모든 산출물과 지정 Penpot Page를 읽기 전용�
 3. `REQ-NN → 목적지 → 실제 노드` 계보를 전부 검사한다.
 4. 채택된 `REF-NN → 전달 규칙 → decision → 실제 노드` 계보를 검사한다.
 5. 모든 `NEW-NN → 필요 → 도출 근거 → decision → 실제 노드` 계보를 검사한다.
-6. 모든 `MECH-NN → source decision → adapted decision → entry/applied/result node` 계보를 검사한다.
-7. signature 적용, foundation 일관성, brand shell, primary/supplemental 경계와 원본 사업 의미 누출을 검사한다.
-8. 컴포넌트·인스턴스, 의미 기반 이름, Frame 위계, Auto Layout, 토큰 일관성을 검사한다.
-9. 모든 최종 프레임을 안정화 후 `export_shape`로 다시 확인한다. 빈 영역이면 한 번 재-export한다. export backend가 실패하면 실패 로그와 안정된 live Penpot screenshot을 함께 남긴 대체 검증만 허용한다.
-10. 6단계 이중축 점수와 실제 화면이 일치하는지 확인한다.
-11. 하나라도 실패하면 전체 FAIL로 쓰고 각 실패에 단일 `owner_stage`와 재실행 지침을 지정한다.
+6. 모든 `ASM-NN → decision → component/board → 실제 node` 계보를 검사하고, 예시/프로토타입 경계와 교체 가능성이 유지되는지 확인한다.
+7. 모든 `MECH-NN → source decision → adapted decision → entry/applied/result node` 계보를 검사한다.
+8. signature 적용, foundation 일관성, brand shell, primary/supplemental 경계와 원본 사업 의미 누출을 검사한다.
+9. 컴포넌트·인스턴스, 의미 기반 이름, Frame 위계, Auto Layout, 토큰 일관성을 검사한다.
+10. 모든 최종 프레임을 안정화 후 `export_shape`로 다시 확인한다. 빈 영역이면 한 번 재-export한다. export backend가 실패하면 실패 로그와 안정된 live Penpot screenshot을 함께 남긴 대체 검증만 허용한다.
+11. 6단계 이중축 점수와 실제 화면이 일치하는지 확인한다.
+12. 하나라도 실패하면 전체 FAIL로 쓰고 각 실패에 단일 `owner_stage`와 재실행 지침을 지정한다.
 
 ## 출력 형식
 
@@ -57,6 +58,9 @@ description: 실행별 모든 산출물과 지정 Penpot Page를 읽기 전용�
 ## Novel decision lineage
 | new_id | rationale | decision_id | evidence_node | status | owner_stage |
 
+## Assumption lineage
+| assumption_id | minimum_assumption | decision_id | component_or_board | evidence_node | visible_label_or_boundary | status | owner_stage |
+
 ## Brand-boundary checks
 | check | evidence | status | owner_stage |
 
@@ -80,6 +84,7 @@ PASS 또는 FAIL
 - 원본 사업의 IA·카피·개체를 이름만 바꾼 복제
 - 최종 프레임 export 누락
 - 6단계 blocker/major 잔존
+- `ASM-NN` 기반 값이 예시·프로토타입 가정임을 숨기거나 PRD 확정 정책처럼 단정
 
 ## 금지
 

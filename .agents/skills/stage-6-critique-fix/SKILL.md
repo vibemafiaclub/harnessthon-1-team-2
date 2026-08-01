@@ -14,13 +14,13 @@ description: 저작된 Penpot 화면을 신규 PRD 적합성과 primary 회사 �
 ## 실행 게이트
 
 - 입력과 작업 Page가 없으면 중단한다.
-- 01~05의 `run_id`, `prd_path`, `work_page`, `artifact_dir`가 호출값과 서로 일치하고, 05에 모든 expected frame의 node ID와 lineage가 있는지 확인한다. 불일치·누락이면 수정하지 않고 owner stage로 반려한다.
+- 01~05의 `run_id`, `prd_path`, `work_page`, `artifact_dir`가 호출값과 서로 일치하고, 05에 모든 expected frame의 node ID와 `REQ/REF/NEW/MECH/ASM/DEC` lineage가 있는지 확인한다. 04의 적용 `ASM-NN`이 05의 component, board 또는 node 로그에 하나 이상 나타나는지 확인한다. 불일치·누락이면 수정하지 않고 owner stage로 반려한다.
 - 작업 Page 외에는 수정하지 않는다.
 - Page 전환은 별도 호출로 하고 모든 스크립트에서 이름으로 다시 확인한다.
 
 ## 절차
 
-1. author log의 모든 보드를 안정화 후 `export_shape`로 다시 확인한다.
+1. author log의 모든 보드를 안정화 후 `export_shape`로 다시 확인한다. P0/P1에서 blocker·major가 남아 있으면 P2/P3의 polish를 시작하지 않는다.
 2. PRD 축에서 과업 완결성, 상태, 정보 위계, 카피, 접근성과 직관성을 평가한다.
 3. 브랜드 축에서 signature 인지성, foundation 일관성, 어조, 밀도, primary 충실도를 평가한다. `Brand shell evidence`에 있던 상태바·브랜드 앵커·하단 내비게이션이 적절한 화면에 실제로 계승됐는지 별도 평가한다.
 4. 공통 품질로 레이아웃·정렬, 타이포·컬러, 디테일, 이미지, 터치 영역, 구조를 평가한다.
@@ -29,7 +29,7 @@ description: 저작된 Penpot 화면을 신규 PRD 적합성과 primary 회사 �
    - `source_product_clone`: 원본 사업의 화면·콘텐츠를 새 이름으로 복제함
 6. supplemental의 스타일이 primary를 압도하는 `brand_contamination`을 검사한다.
 7. `Mechanism transfer ledger`의 검색·필터·지도/리스트·위치 같은 핵심 판단 도구가 새 도메인의 문제를 실제로 해결하는지, entry·applied state·결과가 모두 보이는지 평가한다. 민감한 도메인의 위치 표현은 안전 경계를 지키는지 검사한다.
-8. 실제 노드에서 `REQ-NN`, `REF-NN`, `MECH-NN`, `NEW-NN` 계보를 대조한다.
+8. 실제 노드에서 `REQ-NN`, `REF-NN`, `MECH-NN`, `NEW-NN`, `ASM-NN` 계보를 대조한다. 가정값은 `예시`/프로토타입 범위가 보이고 PRD의 확정 정책처럼 과장되지 않는지 평가한다.
 9. blocker와 major를 직접 수정한다. 위험한 rename/remove 대신 새 고유 이름 컴포넌트로 교체한다.
 10. 수정 화면을 재-export하고 PRD 축과 브랜드 축 모두에서 회귀가 없는지 확인한다.
 
@@ -56,6 +56,9 @@ description: 저작된 Penpot 화면을 신규 PRD 적합성과 primary 회사 �
 
 ## Novel decision audit
 | new_id | evidence_node | derivation_fit | status |
+
+## Assumption audit
+| assumption_id | evidence_node | visible_label_or_boundary | replaceable | prd_conflict | status |
 
 ## Failure-mode audit
 | mode | evidence | status |

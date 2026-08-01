@@ -5,4 +5,4 @@ description: Claude Code 호환 진입점. UX 구조를 Penpot 저작 명세로 
 
 # Compatibility Entry Point
 
-실행 전에 `.agents/skills/stage-4-specify-ui-system/SKILL.md`를 끝까지 읽고 그대로 따른다. 산출물은 호출받은 `<artifact_dir>/04-ui-blueprint.md` 하나에만 쓴다.
+실행 전에 `.agents/skills/stage-4-specify-ui-system/SKILL.md`를 끝까지 읽고 그대로 따른다. 적용 `ASM-NN`을 decision·component·board·content 명세에 추적하고, 산출물은 호출받은 `<artifact_dir>/04-ui-blueprint.md` 하나에만 쓴다.

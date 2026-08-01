@@ -24,11 +24,11 @@ description: 한 회사의 primary Penpot 레퍼런스와 선택적인 브랜드
 3. primary Page의 대표 화면을 폭넓게 조사한다. 화면이 적으면 전부, 많으면 탐색·목록·상세·입력·거래·피드백 등 서로 다른 화면 유형을 최소 3개 선택한다. **탐색/Explore 계열 화면이 있으면 반드시 포함**하며 선택 이유와 제외 범위를 남긴다.
 4. 색·타이포·간격·모서리·그림자·아이콘·이미지·그리드·내비게이션뿐 아니라 반응형 단서, 상태, 모션 암시를 관찰한다. 각 root 화면에서 시스템 상태바, 헤더/브랜드 마크, 하단 내비게이션, active 상태와 safe-area를 별도로 검사한다.
 5. 탐색 화면에서는 검색, 필터, 정렬, 지도/리스트 전환, 위치·거리, 저장, 카드/결과 밀도처럼 **사용자의 판단을 바꾸는 메커니즘**을 별도 표본으로 조사한다. 보이면 사용 목적과 진입·결과를 기록하고, 안 보이면 `unresolved`로 남긴다. 첫 viewport의 visible item 수처럼 실제 밀도 benchmark도 측정한다.
-6. 반복 컴포넌트뿐 아니라 위계, CTA 강도, 카피 어조, 신뢰 형성 방식, 브랜드 서사를 만드는 표현 원칙도 추출한다. 문서가 제공되면 component의 시각 anatomy와 공식 behavior/state/accessibility contract를 분리한다.
+6. 반복 컴포넌트뿐 아니라 위계, CTA 강도, 카피 어조, 신뢰 형성 방식, 브랜드 서사를 만드는 표현 원칙도 추출한다. 하단 navigation, 메뉴 계층, 반복 용어, 항목에 반복되는 정보 축(예: 시간·지역·상태·신뢰 신호)을 별도 관찰해 새 도메인에서 번역할 수 있게 한다. 문서가 제공되면 component의 시각 anatomy와 공식 behavior/state/accessibility contract를 분리한다.
 7. 각 직접 관찰 또는 문서화된 claim에 `REF-NN`, claim type, evidence kind, source authority, surface scope, Page/프레임/노드 또는 문서 위치, 관찰값, capture 시점, 반복 횟수 또는 표본 범위, 신뢰도를 붙인다. 한 노드에서만 본 값을 전역 규칙으로 승격하지 않는다.
 8. 모든 결론을 `observed`, `documented`, `derived`, `unresolved`, `conflicted`, `retired` 중 하나로 명시한다. `derived`에는 supporting `REF-NN`과 도출 논리를 적고, 증거가 없는 상태·반응형·모션·토큰은 `unresolved`로 남긴다. illustrative sample은 `documented`가 아니라 예시로 격리한다.
 9. 같은 semantic role에 서로 다른 값이 있으면 `Semantic reconciliation`에서 `snapshot-drift`, `surface-difference`, `theme-difference`, `state-difference`, `actual-conflict` 중 하나로 분류한다. 숫자를 평균내지 않고 claim type에 맞는 authority와 target surface를 기준으로 선택한다.
-10. 폰트는 선언된 stack, computed/노드상 실제 family, 공식 semantic role, `penpot.fonts.all` 가용성을 분리한다. 대체가 필요하면 원본과 동일하다고 표현하지 말고 metric 보존 지침을 제시한다.
+10. 폰트는 선언된 stack, computed/노드상 실제 family, 공식 semantic role, `penpot.fonts.all` 가용성을 분리한다. 색·간격·radius·행 높이도 raw 빈도만 세지 말고 역할, 면적/반복 표본, 미세 도형 제외 여부를 함께 기록한다. 대체가 필요하면 원본과 동일하다고 표현하지 말고 metric 보존 지침을 제시한다.
 11. semantic color·type·spacing·radius뿐 아니라 theme/dark mode, focus·keyboard·contrast·touch target 등 accessibility 근거를 조사한다. 입력에 없으면 `unresolved`로 둔다.
 12. 브랜드 식별력이 높은 규칙을 `signature`, 기반 규칙을 `foundation`, 원래 사업에 종속된 것을 `domain-bound`로 분류한다.
 13. 각 규칙의 전달 지침을 `preserve`, `translate`, `avoid`로 판정한다. `preserve`는 불변 부분, `translate`는 새 도메인에 맞게 바꿀 부분, `avoid`는 복제 금지 대상을 각각 적는다.
@@ -131,6 +131,9 @@ source authority와 confidence는 별개다. 제3자 문서에서 반복된 주�
 
 ## Voice and terminology
 | context | preferred_pattern | avoid_pattern | observed_sample | sample_status | source_authority | surface_scope | ref_ids |
+
+## IA and information-axis evidence
+| pattern | observed_labels_or_values | placement_or_order | new-domain translation boundary | ref_ids |
 
 ## Brand expression principles
 | principle | product_expression | supporting_ref_ids | confidence | boundary |

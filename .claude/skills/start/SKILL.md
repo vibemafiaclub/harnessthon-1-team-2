@@ -3,7 +3,7 @@ name: start
 description: 회사별 레퍼런스의 브랜드 정체성을 유지하면서 신규 PRD에 맞는 Penpot UI를 만드는 7단계 하네스를 실행한다. "/start", "PRD 실행", "하네스 돌려줘" 요청에 사용한다.
 ---
 
-# Compatibility Entry Point
+# Start — Claude Code Compatibility Entry Point
 
 공용 호환 진입점이다. 실행 전에 저장소의 정식 계약인 `.agents/skills/start/SKILL.md`를 끝까지 읽고 그대로 따른다.
 
@@ -13,8 +13,10 @@ Claude Code에서는 다음 custom sub-agent를 사용한다. 각 agent는 동�
 2. 두 산출물의 handoff 잠금이 통과한 뒤 `stage-3-architect-experience`를 실행한다.
 3. 이어서 `stage-4-specify-ui-system`, `stage-5-author-penpot`, `stage-6-critique-fix`, `stage-verify-penpot`을 직렬 실행한다.
 
-`work_page`, primary `reference_pages`, `run_id`, `artifact_dir`를 모든 sub-agent prompt에 명시한다. `.agents`의 정식 계약과 이 호환 설명이 다르면 정식 계약을 우선한다.
+`work_page`, primary `reference_pages`, `run_id`, `artifact_dir`, `assumption_mode`를 모든 sub-agent prompt에 명시한다. `.agents`의 정식 계약과 이 호환 설명이 다르면 정식 계약을 우선한다.
 
-필수 입력은 `prd_path`, `work_page`, 하나의 primary를 포함한 `reference_pages`다. 모든 단계는 `.agents/skills/stage-*/SKILL.md`의 계약으로 별도 sub-agent가 수행하며 산출물은 `docs/artifacts/<run_id>/`에 격리한다.
+필수 입력은 `prd_path`, `work_page`, 하나의 primary를 포함한 `reference_pages`다. `assumption_mode`의 기본값은 `auto`다. 모든 단계는 `.agents/skills/stage-*/SKILL.md`의 계약으로 별도 sub-agent가 수행하며 산출물은 `docs/artifacts/<run_id>/`에 격리한다.
+
+`auto`에서는 PRD의 수치·카피·세부 정책 공백을 `ASM-NN` 가정으로 기록해 자동 진행한다. 도메인별 routine 질문을 하지 않는다. 잘못 지정하면 타인의 Penpot 결과를 훼손할 수 있는 `work_page`, primary 레퍼런스, 입력 파일만 실행 전 안전 게이트로 확인한다. 이 진입점은 PRD·primary 레퍼런스·안전한 작업 Page로 01~99 산출물과 Penpot 저작·QA·검증까지 완주한다.
 
 Page 이름이나 primary 레퍼런스를 추측하지 않는다. 레퍼런스·다른 팀·공용 Page를 수정하지 않는다.

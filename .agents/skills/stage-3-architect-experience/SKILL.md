@@ -13,11 +13,11 @@ description: 신규 PRD 계약과 회사 레퍼런스의 브랜드 DNA를 결합
 ## 절차
 
 1. 입력과 필수 ID를 확인한다. 01·02의 `run_id`, `prd_path`, `work_page`, `artifact_dir`가 호출값과 서로 일치하고, 01에 모든 `REQ-NN`, 02에 적어도 하나의 `REF-NN`이 있는지 확인한다. 하나라도 없거나 다른 실행이면 중단한다.
-2. 모든 `REQ-NN`을 화면·오버레이·상태·구조에 매핑한다.
+2. 모든 `REQ-NN`과 적용 가능한 `ASM-NN`을 화면·오버레이·상태·구조에 매핑한다. `ASM-NN`은 PRD 요구가 아니라 교체 가능한 표현/정책 가정으로 유지한다. P0/P1을 먼저 완결하고 P2/P3은 핵심 흐름 및 재사용 상태 표현을 해치지 않는 범위에서만 추가한다.
 3. 핵심 과업을 가장 짧고 명확한 흐름으로 구성하고 화면마다 단일 주행동을 정한다.
 4. 새 도메인의 의사결정 중요도·빈도·위험에 맞춰 정보 위계를 새로 설계한다.
 5. 각 주요 경험 결정에 `DEC-NN`을 부여하고 적용할 `REF-NN`과 `preserve/translate` 방식을 연결한다.
-6. 레퍼런스에 없는 기능 해법은 `NEW-NN`으로 만들고 사용자 필요, 가장 가까운 브랜드 규칙, 도출 논리를 기록한다.
+6. 레퍼런스에 없는 기능 해법은 `NEW-NN`으로 만들고 사용자 필요, 가장 가까운 브랜드 규칙, 도출 논리를 기록한다. `ASM-NN`에 의존하는 해법은 가정 ID와 교체 경계를 함께 기록한다.
 7. 식별력 높은 signature가 어느 화면에서 어떻게 나타나는지 정한다. 장식 복제가 아니라 위계·행동·어조까지 포함한다.
 8. `Brand shell evidence`의 상태바·브랜드 앵커·하단 내비게이션을 화면군별로 `preserve`, `translate`, `avoid`, `unresolved`로 배치한다. 원본 shell을 장식으로만 붙이지 말고 새 제품의 정보 구조·주행동과 충돌하지 않게 한다.
 9. `Exploration mechanism evidence`가 있고 PRD에 발견/비교 과업이 있으면 각 `MECH-NN`에 적응 결정을 만든다. 검색·필터는 새 도메인의 판단 기준으로, 지도는 위치가 민감한 도메인에서는 정확한 좌표 대신 동네·거리 범위·클러스터/리스트 전환처럼 안전하게 번역한다. 원본 지도나 검색 결과를 이름만 바꿔 복제하지 않는다.
@@ -37,7 +37,7 @@ description: 신규 PRD 계약과 회사 레퍼런스의 브랜드 DNA를 결합
 | principle | rationale | requirement_ids | ref_ids |
 
 ## Screen manifest
-| order | frame_name | type | purpose | primary_action | requirement_ids | states |
+| order | priority | frame_name | type | purpose | primary_action | requirement_ids | states |
 
 ## Flow graph
 | from | trigger | to | success | failure | recovery |
@@ -56,6 +56,9 @@ description: 신규 PRD 계약과 회사 레퍼런스의 브랜드 DNA를 결합
 
 ## Novel decision ledger
 | new_id | unmet_need | closest_ref_ids | derived_solution | risk |
+
+## Assumption application ledger
+| assumption_id | decision_id | frame_name | applied_expression | visible_label_or_boundary | replacement_impact |
 
 ## Signature placement
 | ref_id | frame_name | expression | why_recognizable |

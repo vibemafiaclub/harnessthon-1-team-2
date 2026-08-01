@@ -1,4 +1,4 @@
 interface:
-  display_name: "Brand-Adaptive Harness"
-  short_description: "Run a brand-faithful PRD-to-Penpot design pipeline"
+  display_name: "Start — Brand-Adaptive Harness"
+  short_description: "Run the automatic PRD-to-Penpot design pipeline"
   default_prompt: "Use $start with a PRD, named work page, and primary reference page to run the brand-adaptive design harness."

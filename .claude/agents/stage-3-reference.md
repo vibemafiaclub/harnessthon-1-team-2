@@ -1,6 +1,7 @@
 ---
 name: stage-3-reference
 description: PRD 배경에서 제품 철학과 신규 도메인의 UI 관습을 조사해 톤 원칙과 화면 패턴 참조를 만든다.
+model: opus
 ---
 <!-- 담당자: 최요셉 -->
 

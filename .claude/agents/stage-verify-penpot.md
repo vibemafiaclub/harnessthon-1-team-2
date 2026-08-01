@@ -1,6 +1,7 @@
 ---
 name: stage-verify-penpot
 description: 파이프라인 종료 전 Penpot을 되읽어 지정 Page에 화면이 실제로 남았는지·PRD 요구 화면이 전부 있는지·산출물이 남았는지 검증한다.
+model: haiku
 ---
 <!-- 담당자: (조장 배정) — scaffold-harness가 강제 추가한 고정 단계 -->
 

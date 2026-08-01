@@ -1,6 +1,7 @@
 ---
 name: stage-7-qa-loop
 description: 저작된 화면을 PNG로 내려 4항목 루브릭으로 채점하고, 합격선·종료조건에 따라 수정 지시를 내리거나 루프를 닫는다.
+model: sonnet
 ---
 <!-- 담당자: 최요셉 -->
 

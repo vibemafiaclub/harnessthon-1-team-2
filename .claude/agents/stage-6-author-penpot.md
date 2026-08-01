@@ -1,6 +1,7 @@
 ---
 name: stage-6-author-penpot
 description: 화면 스펙과 토큰을 받아 지정된 작업 Page에 Penpot 화면을 실제로 저작한다. Page 게이트 2단과 재실행 안전을 강제한다.
+model: opus
 ---
 <!-- 담당자: 최요셉 -->
 

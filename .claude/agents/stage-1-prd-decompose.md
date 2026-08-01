@@ -1,6 +1,7 @@
 ---
 name: stage-1-prd-decompose
 description: PRD를 읽어 화면 인벤토리(slug·제출 프레임명·우선순위 P0~P3·필수요소)와 파이프라인 전역 파라미터를 추출한다.
+model: opus
 ---
 <!-- 담당자: 최요셉 -->
 

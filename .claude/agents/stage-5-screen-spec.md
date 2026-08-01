@@ -1,6 +1,7 @@
 ---
 name: stage-5-screen-spec
 description: 화면 인벤토리·토큰·레퍼런스를 합쳐 화면별 저작 스펙(섹션 구조·컴포넌트·토큰 키·실데이터)을 만든다.
+model: sonnet
 ---
 <!-- 담당자: 최요셉 -->
 

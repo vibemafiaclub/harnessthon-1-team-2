@@ -1,6 +1,7 @@
 ---
 name: stage-2-asset-tokens
 description: PRD가 지정한 기존자산 Page를 읽기 전용으로 스캔해 색·폰트·스페이싱·규격 토큰과 컴포넌트 카탈로그를 추출한다.
+model: sonnet
 ---
 <!-- 담당자: 최요셉 -->
 

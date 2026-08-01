@@ -19,7 +19,7 @@ description: 실행별 모든 산출물과 지정 Penpot Page를 읽기 전용�
 ## 절차
 
 1. 같은 `<artifact_dir>` 안에 01~06이 모두 존재하고, 각 파일의 `run_id`, `prd_path`, `work_page`, `artifact_dir`가 호출값과 서로 일치하는지 검사한다. 루트 `docs/artifacts/` 또는 다른 run 디렉터리의 파일은 증거로 사용하지 않는다. 필수 표와 ID가 비어 있거나 identity가 불일치하면 즉시 FAIL로 기록한다.
-2. experience map의 모든 프레임이 지정 Page에 정확히 하나씩 존재하는지 확인한다. `Archive/<run_id>/` 보드는 최종 화면에서 제외하되 reconciliation 로그와 일치하는지 검사한다.
+2. experience map의 모든 프레임이 지정 Page에 정확히 하나씩 존재하는지 확인한다. `Archive/<run_id>/` 보드는 최종 화면에서 제외하되 reconciliation 로그와 일치하는지 검사한다. 최상위 프레임의 canvas order가 `Screen manifest.order`와 일치하는지, 그리고 author log의 `manifest_order`/`canvas_order`와 일치하는지 검사한다.
 3. `REQ-NN → 목적지 → 실제 노드` 계보를 전부 검사한다.
 4. 채택된 `REF-NN → 전달 규칙 → decision → 실제 노드` 계보를 검사한다.
 5. 모든 `NEW-NN → 필요 → 도출 근거 → decision → 실제 노드` 계보를 검사한다.
@@ -41,7 +41,7 @@ description: 실행별 모든 산출물과 지정 Penpot Page를 읽기 전용�
 | artifact | exists | required_sections | run_id_match | status |
 
 ## Frame checks
-| expected_frame | node_id | exported | visual_status |
+| expected_frame | manifest_order | canvas_order | node_id | exported | visual_status | order_status |
 
 ## Requirement lineage
 | requirement_id | destination | evidence_node | status | owner_stage |

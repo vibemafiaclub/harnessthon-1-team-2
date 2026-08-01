@@ -25,7 +25,7 @@ description: 근거가 연결된 브랜드 적응형 UI 블루프린트를 지�
 3. 블루프린트 토큰을 JS 상수 객체로 선언하고 일관 적용한다.
 4. 컴포넌트 이름에 `run_id` 기반 고유 프리픽스와 의미 기반 이름을 처음부터 사용한다.
 5. 반복 UI는 컴포넌트 인스턴스로 만들고 인스턴스 채움은 Penpot 형식 `{fillColor, fillOpacity}`을 사용한다.
-6. foundation, **brand shell**, signature, 신규 기능 컴포넌트 순으로 작은 배치로 저작한다. P0/P1 프레임을 모두 export 확인한 뒤에만 P2/P3을 저작한다. 블루프린트가 요구하면 primary 레퍼런스의 상태바 구조를 clone/recreate하고, 브랜드 앵커·하단 내비게이션을 재사용 컴포넌트로 먼저 만든다. 임의의 시간·와이파이·배터리 텍스트로 status bar를 흉내 내지 않는다.
+6. foundation, **brand shell**, signature, 신규 기능 컴포넌트 순으로 작은 배치로 저작한다. P0/P1 프레임을 모두 export 확인한 뒤에만 P2/P3을 저작한다. `Screen manifest.order` 순서로 최상위 프레임을 배치하고, 각 의미 있는 배치 뒤 export 경로·발견 문제·수정·재-export 결과를 `Layout checkpoints`에 남긴다. 블루프린트가 요구하면 primary 레퍼런스의 상태바 구조를 clone/recreate하고, 브랜드 앵커·하단 내비게이션을 재사용 컴포넌트로 먼저 만든다. 임의의 시간·와이파이·배터리 텍스트로 status bar를 흉내 내지 않는다.
 7. 각 주요 노드가 `REQ-NN`, `REF-NN`, `NEW-NN`, `ASM-NN` 중 무엇을 구현하는지 로그에 연결한다. `ASM-NN` 기반 값은 블루프린트의 예시/교체 경계를 그대로 노출한다.
 8. 비-Auto Layout 부모의 자식은 절대 좌표를 다시 설정한다. Auto Layout 축·사이징은 블루프린트를 따른다.
 9. 가변 텍스트는 `growType="auto-height"`, 가변 칸은 고정 폭과 정렬을 사용한다. 하단 고정 요소의 Spacer는 계산값을 쓴다.
@@ -53,10 +53,13 @@ description: 근거가 연결된 브랜드 적응형 UI 블루프린트를 지�
 | component_name | node_id | instances | decision_ids | ref_ids | new_ids | mechanism_ids | assumption_ids | blueprint_match |
 
 ## Boards
-| frame_name | node_id | requirement_ids | signature_ref_ids | mechanism_ids | decision_ids | assumption_ids | export_checked | issues_fixed |
+| frame_name | manifest_order | canvas_order | node_id | requirement_ids | signature_ref_ids | mechanism_ids | decision_ids | assumption_ids | export_checked | issues_fixed |
 
 ## Node lineage
 | node_id | node_name | requirement_ids | ref_ids | mechanism_ids | new_ids | assumption_ids | decision_ids |
+
+## Layout checkpoints
+| frame_name | checkpoint | export_path_or_live_capture | issue_found | fix_applied | reexport_status |
 
 ## Deviations
 | blueprint_item | actual | reason | impact | lineage_preserved |

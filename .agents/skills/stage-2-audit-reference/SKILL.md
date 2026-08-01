@@ -28,7 +28,7 @@ description: 한 회사의 primary Penpot 레퍼런스와 선택적인 브랜드
 7. 각 직접 관찰 또는 문서화된 claim에 `REF-NN`, claim type, evidence kind, source authority, surface scope, Page/프레임/노드 또는 문서 위치, 관찰값, capture 시점, 반복 횟수 또는 표본 범위, 신뢰도를 붙인다. 한 노드에서만 본 값을 전역 규칙으로 승격하지 않는다.
 8. 모든 결론을 `observed`, `documented`, `derived`, `unresolved`, `conflicted`, `retired` 중 하나로 명시한다. `derived`에는 supporting `REF-NN`과 도출 논리를 적고, 증거가 없는 상태·반응형·모션·토큰은 `unresolved`로 남긴다. illustrative sample은 `documented`가 아니라 예시로 격리한다.
 9. 같은 semantic role에 서로 다른 값이 있으면 `Semantic reconciliation`에서 `snapshot-drift`, `surface-difference`, `theme-difference`, `state-difference`, `actual-conflict` 중 하나로 분류한다. 숫자를 평균내지 않고 claim type에 맞는 authority와 target surface를 기준으로 선택한다.
-10. 폰트는 선언된 stack, computed/노드상 실제 family, 공식 semantic role, `penpot.fonts.all` 가용성을 분리한다. 색·간격·radius·행 높이도 raw 빈도만 세지 말고 역할, 면적/반복 표본, 미세 도형 제외 여부를 함께 기록한다. 대체가 필요하면 원본과 동일하다고 표현하지 말고 metric 보존 지침을 제시한다.
+10. 폰트는 선언된 stack, computed/노드상 실제 family, 공식 semantic role, `penpot.fonts.all` 가용성을 분리한다. 색·간격·radius·행 높이도 raw 빈도만 세지 말고 역할, 면적/반복 표본, 표본 추출 방법과 미세 도형 제외 기준을 함께 기록한다. 1~2px 선·아이콘 조각은 color/gap/radius 통계를 왜곡할 수 있으므로 semantic role을 확인할 수 없으면 제외한다. 대체가 필요하면 원본과 동일하다고 표현하지 말고 metric 보존 지침을 제시한다.
 11. semantic color·type·spacing·radius뿐 아니라 theme/dark mode, focus·keyboard·contrast·touch target 등 accessibility 근거를 조사한다. 입력에 없으면 `unresolved`로 둔다.
 12. 브랜드 식별력이 높은 규칙을 `signature`, 기반 규칙을 `foundation`, 원래 사업에 종속된 것을 `domain-bound`로 분류한다.
 13. 각 규칙의 전달 지침을 `preserve`, `translate`, `avoid`로 판정한다. `preserve`는 불변 부분, `translate`는 새 도메인에 맞게 바꿀 부분, `avoid`는 복제 금지 대상을 각각 적는다.
@@ -106,7 +106,7 @@ source authority와 confidence는 별개다. 제3자 문서에서 반복된 주�
 | semantic_role | penpot_snapshot_value | documented_value | difference_type | target_surface | chosen_value_or_rule | authority_reason | losing_claim_disposition | ref_ids |
 
 ## Measured primitives
-| category | semantic_candidate | observed_value | role_and_context | frequency | ref_ids | scope_limit |
+| category | semantic_candidate | observed_value | role_and_context | sampling_method | tiny_shape_exclusion | frequency | ref_ids | scope_limit |
 
 ## Typography evidence boundary
 | surface_scope | declared_stack | computed_or_node_family | official_semantic_roles | sizes_weights_line_heights | penpot_available | fallback | metric_preservation | ref_ids |

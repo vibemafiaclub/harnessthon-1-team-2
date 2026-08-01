@@ -111,6 +111,10 @@ if (existing && MODE === "update") { /* characters·fills만 덮는다. 이름�
 | hug(자동 폭) 칸은 텍스트를 갈아끼워도 위치가 안 따라옴 | 가변 텍스트 칸은 **고정 폭 + 텍스트 정렬** |
 | `layoutGrow` Spacer가 폭 1로 되돌아감 | 하단 고정 요소는 Spacer 높이를 **계산해 명시** |
 | `export_shape`가 레이아웃 안정 전이면 **빈 영역** | 없다고 판단하기 전에 **재-export 한 번** |
+| 🔴 **대용량 PNG를 병렬로 여러 장 임포트하면 플러그인이 멈춘다** (1MB급 10장 → 이후 모든 호출 타임아웃) | 이미지는 **긴 변 780px 이하로 미리 축소**하고 **2~3장씩 나눠** 임포트. 임포트용 임시 도형은 fill 이식 후 **즉시 remove** |
+| 🔴 **플러그인 탭이 2개 열리면 전 호출이 실패**("Multiple instances are connected") | 에디터 탭은 **1개만**. 새로고침 후 이전 탭을 반드시 닫는다 |
+| 보드·이미지가 늘어나면 **전체 순회(findShape on root)가 30초 타임아웃** | 보드 id를 `storage`에 저장해 **직접 접근**. 순회는 `board.children` 1단계까지만 |
+| 타임아웃이 떠도 **작업은 실제로 반영된 경우가 많다** | 재실행 전에 **먼저 상태를 되읽어 확인**(중복 생성 방지) |
 | 자식 순서 수정 | `board.insertChild(index, node)` (remove가 위험한 환경의 탈출구) |
 
 **쓸 수 있는 것**: 실사진 `const img = await penpot.uploadMediaUrl(name, url)` →

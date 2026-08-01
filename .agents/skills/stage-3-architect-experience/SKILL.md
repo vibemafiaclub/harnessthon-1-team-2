@@ -12,7 +12,7 @@ description: 신규 PRD 계약과 회사 레퍼런스의 브랜드 DNA를 결합
 
 ## 절차
 
-1. 입력과 필수 ID를 확인한다. 하나라도 없으면 중단한다.
+1. 입력과 필수 ID를 확인한다. 01·02의 `run_id`, `prd_path`, `work_page`, `artifact_dir`가 호출값과 서로 일치하고, 01에 모든 `REQ-NN`, 02에 적어도 하나의 `REF-NN`이 있는지 확인한다. 하나라도 없거나 다른 실행이면 중단한다.
 2. 모든 `REQ-NN`을 화면·오버레이·상태·구조에 매핑한다.
 3. 핵심 과업을 가장 짧고 명확한 흐름으로 구성하고 화면마다 단일 주행동을 정한다.
 4. 새 도메인의 의사결정 중요도·빈도·위험에 맞춰 정보 위계를 새로 설계한다.
@@ -27,6 +27,9 @@ description: 신규 PRD 계약과 회사 레퍼런스의 브랜드 DNA를 결합
 ## 출력 형식
 
 ```markdown
+## Run metadata
+| run_id | prd_path | work_page | reference_pages | artifact_dir | input_01 | input_02 |
+
 ## Adaptation thesis
 | new_product_job | inherited_character | transformation_rule | must_not_copy |
 

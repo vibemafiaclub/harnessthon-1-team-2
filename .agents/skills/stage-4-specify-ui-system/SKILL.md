@@ -12,7 +12,7 @@ description: 브랜드 레퍼런스와 적응형 UX를 Penpot에서 재현 가�
 
 ## 절차
 
-1. 입력의 `REF-NN`, `NEW-NN`, 프레임 목록을 확인한다.
+1. 02·03의 `run_id`, `prd_path`, `work_page`, `artifact_dir`가 호출값과 서로 일치하고 03의 모든 `REQ-NN` coverage 및 주요 `DEC-NN`이 있는지 확인한다. 누락·불일치면 중단한다. 그 뒤 입력의 `REF-NN`, `NEW-NN`, 프레임 목록을 확인한다.
 2. 토큰을 의미 기반 JS 상수로 정의하고 각 값을 `observed`, `derived`, `new-functional` 중 하나로 분류한다.
 3. derived/new 값에는 가장 가까운 `REF-NN`, 도출식 또는 기능상 이유를 적는다.
 4. signature 규칙은 눈에 띄는 위치에, foundation 규칙은 전 화면에 일관되게 배치한다. `Shell placement plan`이 요구하면 상태바·브랜드 앵커·하단 내비게이션을 별도 reusable component로 명세하고 정확한 `REF-NN` 근거를 적는다.
@@ -25,6 +25,9 @@ description: 브랜드 레퍼런스와 적응형 UX를 Penpot에서 재현 가�
 ## 출력 형식
 
 ```markdown
+## Run metadata
+| run_id | prd_path | work_page | artifact_dir | input_02 | input_03 |
+
 ## Decision provenance
 | decision_id | kind | value_or_rule | ref_ids | new_id | derivation |
 

@@ -14,6 +14,7 @@ description: 저작된 Penpot 화면을 신규 PRD 적합성과 primary 회사 �
 ## 실행 게이트
 
 - 입력과 작업 Page가 없으면 중단한다.
+- 01~05의 `run_id`, `prd_path`, `work_page`, `artifact_dir`가 호출값과 서로 일치하고, 05에 모든 expected frame의 node ID와 lineage가 있는지 확인한다. 불일치·누락이면 수정하지 않고 owner stage로 반려한다.
 - 작업 Page 외에는 수정하지 않는다.
 - Page 전환은 별도 호출로 하고 모든 스크립트에서 이름으로 다시 확인한다.
 
@@ -35,6 +36,9 @@ description: 저작된 Penpot 화면을 신규 PRD 적합성과 primary 회사 �
 ## 출력 형식
 
 ```markdown
+## Run metadata
+| run_id | prd_path | work_page | artifact_dir | input_01_to_05 |
+
 ## Dual-axis scorecard
 | frame_name | prd_fit | brand_fidelity | brand_shell | mechanism_transfer | domain_fit | layout | type_color | polish | structure |
 

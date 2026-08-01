@@ -13,7 +13,7 @@ description: 근거가 연결된 브랜드 적응형 UI 블루프린트를 지�
 
 ## 실행 게이트
 
-1. 모든 입력, `work_page`, expected frame 목록을 확인한다.
+1. 모든 입력, `work_page`, expected frame 목록을 확인한다. 01~04의 `run_id`, `prd_path`, `work_page`, `artifact_dir`가 호출값과 서로 일치하고 04의 모든 board가 03의 frame manifest에 존재하는지 확인한다. 누락·불일치면 저작하지 않고 중단한다.
 2. 작업 Page가 실제로 존재하고 reference·공용·다른 팀 Page가 아닌지 확인한다.
 3. Page를 추측하거나 첫 Page를 기본 선택하지 않는다.
 4. Page 전환만 하는 별도 `use_figma` 호출을 먼저 실행한다. 같은 호출에서 노드를 만지지 않는다.
@@ -50,10 +50,10 @@ description: 근거가 연결된 브랜드 적응형 UI 블루프린트를 지�
 | run_id | prd_path | work_page | artifact_dir | started_at | completed_at |
 
 ## Components
-| component_name | node_id | instances | decision_ids | blueprint_match |
+| component_name | node_id | instances | decision_ids | ref_ids | new_ids | mechanism_ids | blueprint_match |
 
 ## Boards
-| frame_name | node_id | requirement_ids | signature_ref_ids | export_checked | issues_fixed |
+| frame_name | node_id | requirement_ids | signature_ref_ids | mechanism_ids | decision_ids | export_checked | issues_fixed |
 
 ## Node lineage
 | node_id | node_name | requirement_ids | ref_ids | mechanism_ids | new_ids | decision_ids |

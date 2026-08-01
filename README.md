@@ -68,6 +68,16 @@ cp docs/examples/airbnb-dating.md docs/PRD.md   # Airbnb → 소개팅
 
 `start`의 실행 순서와 `.claude/agents/stage-*.md` 초안이 한 번에 생성됩니다.
 
+## Claude Code에서 실행
+
+Claude Code도 같은 하네스를 실행할 수 있습니다. 저장소 루트에서 Claude Code를 연 뒤, 필요한 입력을 명시해 `/start`를 요청하세요.
+
+```text
+/start prd_path=docs/PRD.md work_page=<내 개인 Page> reference_pages=[{name:"기존파일",role:"primary"}]
+```
+
+`.claude/skills/`와 `.claude/agents/`는 Claude Code용 호환 진입점이며, 실제 단계 계약은 `.agents/skills/`에 한 번만 유지됩니다. 모든 산출물은 반드시 `docs/artifacts/<run_id>/`에 생성되며, 루트 `docs/artifacts/`의 과거 파일은 새 실행의 입력으로 사용하지 않습니다.
+
 ## 작업 저장
 
 ```

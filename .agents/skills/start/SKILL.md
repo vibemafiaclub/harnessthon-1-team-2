@@ -30,6 +30,7 @@ $start prd_path=docs/examples/daangn-stock.md work_page=황선태 reference_page
 4. 모든 레퍼런스 Page, `기존파일`, 다른 팀 Page는 읽기 전용이다. `중간공유`·`최종제출`에서 처음부터 저작하지 않는다.
 5. `artifact_dir=docs/artifacts/<run_id>`를 정하고 없으면 생성한다. 디렉터리에 기존 실행물이 있고 `resume=false`면 덮어쓰지 말고 새 `run_id`를 사용한다.
 6. 모든 sub-agent 호출에 `prd_path`, `work_page`, `reference_pages`, `brand_context_path`, `run_id`, `artifact_dir`, 입력 파일과 단일 출력 파일을 명시한다.
+7. 루트 `docs/artifacts/`의 과거 파일은 실행 입력으로 사용하지 않는다. 모든 입력은 반드시 같은 `<artifact_dir>` 안의 파일이어야 하며, `run_id`, `prd_path`, `work_page`, `artifact_dir`가 이번 실행값과 모두 일치해야 한다.
 
 ## 단계 계약
 
@@ -51,6 +52,21 @@ $start prd_path=docs/examples/daangn-stock.md work_page=황선태 reference_page
 4. 같은 Penpot Page를 수정하는 5단계와 6단계는 반드시 직렬 실행한다.
 5. 선행 산출물 또는 계약 필드가 없으면 후속 단계를 실행하지 않는다.
 6. 각 단계는 자기 출력만 쓰며 다른 단계 산출물을 수정하지 않는다.
+
+## 산출물 handoff 잠금
+
+후속 단계는 입력을 "참고"만 하지 말고 아래 검사를 통과한 경우에만 소비한다. 하나라도 실패하면 그 입력의 owner stage로 되돌리고, 빈 표·누락 ID·다른 run의 파일을 임의 보완하지 않는다.
+
+| handoff | 필수 identity | 최소 계보 증거 |
+|---|---|---|
+| 1 → 3 | 01의 `run_id/prd_path/work_page/artifact_dir` 일치 | 모든 `REQ-NN`, `Screen candidates`, `Open questions` |
+| 2 → 3 | 02의 `run_id/reference_pages/work_page/artifact_dir` 일치 | 적어도 하나의 `REF-NN`; `signature/preserve` 및 shell/mechanism은 `REF-NN` 또는 `unresolved` |
+| 3 → 4 | 01·02와 03의 identity 일치 | 모든 `REQ-NN` coverage, 각 주요 `DEC-NN`, 필요한 `NEW-NN`·`MECH-NN` |
+| 4 → 5 | 03과 04의 identity 일치 | 모든 board, component, token 결정이 `DEC-NN` 또는 `NEW-NN`에 연결 |
+| 5 → 6 | 01~04와 05의 identity 일치 | 모든 expected frame node ID와 `REQ/REF/NEW/MECH/DEC` node lineage |
+| 6 → 7 | 01~05와 06의 identity 일치 | blocker=0, major=0, 재-export 증거 |
+
+`OPEN-NN`이 blocking이면 숫자·정책·콘텐츠를 예시값으로 채워 진행할 수 없다. 사용자가 명시적으로 prototype assumption을 승인한 경우에만 1단계 산출물에 해당 결정과 수용 범위를 기록한 뒤, 그 결정에 연결된 `NEW-NN`으로 후속 단계에 전달한다.
 
 ## 전 구간 추적 계약
 

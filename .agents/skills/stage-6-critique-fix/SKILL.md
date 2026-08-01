@@ -29,16 +29,9 @@ description: 저작된 Penpot 화면을 신규 PRD 적합성과 primary 회사 �
    - `source_product_clone`: 원본 사업의 화면·콘텐츠를 새 이름으로 복제함
 6. supplemental의 스타일이 primary를 압도하는 `brand_contamination`을 검사한다.
 7. `Mechanism transfer ledger`의 검색·필터·지도/리스트·위치 같은 핵심 판단 도구가 새 도메인의 문제를 실제로 해결하는지, entry·applied state·결과가 모두 보이는지 평가한다. 민감한 도메인의 위치 표현은 안전 경계를 지키는지 검사한다.
-8. **승계 축을 감사한다.** 03 `Inheritance decision table`과 04 `Slot fidelity spec`을 실제 노드·PNG와 대조한다.
-   - 모든 `②`가 원본과 같은 자리·정렬·줄 수로 나타나는가. 자리가 밀렸거나 줄이 빠졌으면 major다.
-   - `③`으로 판정한 원본 요소가 화면에 새어 들어오지 않았는가. 새어 들어왔으면 blocker다.
-   - 화면당 `④` 개수를 센다. 2개를 넘으면 major이며 `owner_stage=3`으로 반려한다.
-   - 브랜드색이 03 `Brand color budget`의 허용 위치 밖에 칠해졌는지 PNG에서 확인한다. 초과면 major다.
-   - 타이포 weight가 02 관찰 집합 밖인지 노드에서 확인한다. 벗어났으면 major다.
-   - 02 `SRULE-NN`의 배타 관계가 깨진 화면이 있는지 확인한다. 하단 내비와 하단 액션바 공존처럼 원본이 금지한 조합이 있으면 major다.
-9. 실제 노드에서 `REQ-NN`, `REF-NN`, `MECH-NN`, `NEW-NN`, `INH-NN` 계보를 대조한다.
-10. blocker와 major를 직접 수정한다. 위험한 rename/remove 대신 새 고유 이름 컴포넌트로 교체한다. 다만 `④` 초과와 `③` 누출은 UX 판단이므로 이 단계에서 임의로 새 문법을 만들지 말고 `owner_stage=3`으로 반려한다.
-11. 수정 화면을 재-export하고 PRD 축과 브랜드 축 모두에서 회귀가 없는지 확인한다.
+8. 실제 노드에서 `REQ-NN`, `REF-NN`, `MECH-NN`, `NEW-NN` 계보를 대조한다.
+9. blocker와 major를 직접 수정한다. 위험한 rename/remove 대신 새 고유 이름 컴포넌트로 교체한다.
+10. 수정 화면을 재-export하고 PRD 축과 브랜드 축 모두에서 회귀가 없는지 확인한다.
 
 ## 출력 형식
 
@@ -61,12 +54,6 @@ description: 저작된 Penpot 화면을 신규 PRD 적합성과 primary 회사 �
 ## Shell and mechanism audit
 | shell_or_mechanism_id | source_ref_ids | intended_transfer | evidence_node | applied_state_evidence | safety_status | status |
 
-## Inheritance audit
-| inh_id | class | slot_id | frame_name | evidence_node | position_kept | alignment_kept | line_count_kept | status |
-
-## Inheritance budget audit
-| frame_name | new_grammar_count | brand_color_positions_over_budget | weight_out_of_range | structural_rule_broken | leaked_class_3_elements | status | owner_stage |
-
 ## Novel decision audit
 | new_id | evidence_node | derivation_fit | status |
 
@@ -86,17 +73,10 @@ description: 저작된 Penpot 화면을 신규 PRD 적합성과 primary 회사 �
 - blocker와 major가 0이다.
 - 세 실패 모드가 모두 통과한다.
 - primary에서 `preserve` 또는 `translate`로 지정한 shell/mechanism의 부재는 major로 처리한다.
-- 모든 `②`가 자리·정렬·줄 수를 유지한다.
-- `③` 요소의 화면 누출이 0이다.
-- 모든 화면의 `④` 개수가 2를 넘지 않는다. 목표는 1이며 2인 화면은 `Remaining risks`에 `owner_stage=3`으로 남긴다.
-- 브랜드색 허용 위치 초과와 weight 범위 이탈이 0이다.
-- 깨진 `SRULE-NN`이 0이다.
 
 ## 금지
 
 - PNG 확인 없는 합격
 - PRD 적합성과 브랜드 충실도를 한 점수로 뭉개기
 - 개인 취향으로 근거 있는 primary 규칙 교체
-- 이 단계에서 새 `NEW-NN` 문법을 만들어 `④` 초과를 덮기
-- 자리가 안 맞는다는 이유로 승계한 슬롯을 옮기거나 줄 수를 줄이기
 - 작업 Page 외 수정 또는 다른 단계 산출물 수정

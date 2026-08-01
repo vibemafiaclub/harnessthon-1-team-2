@@ -12,7 +12,6 @@ description: 한 회사의 primary Penpot 레퍼런스와 선택적인 브랜드
 
 ## 실행 게이트
 
-0. 저작 판단 전에 `docs/brand-inheritance.md`를 끝까지 읽는다. 이 단계는 그 문서의 §2 실측, §2-1 브랜드색 밀도, §3 슬롯 추상화, §5 구조 배타 규칙을 소유한다. ①②③④ 판별은 이 단계가 하지 않는다. 신규 도메인을 모르는 상태에서 분류하면 안 된다.
 1. `reference_pages`의 모든 Page가 현재 파일에 존재하는지 확인한다.
 2. 일반 실행은 `primary`가 정확히 하나여야 한다. supplemental은 primary 정체성을 덮지 못한다.
 3. Page 이름을 추측하거나 읽기 위해 Page를 전환하지 않는다.
@@ -37,11 +36,7 @@ description: 한 회사의 primary Penpot 레퍼런스와 선택적인 브랜드
 15. 상태·반응형·모션은 별도 coverage matrix로 정리한다. `observed in product`, `officially documented`, `editorial/derived`, `unresolved`를 구분하며 정적 단서만 있으면 동작 자체를 관찰한 것처럼 쓰지 않는다.
 16. voice는 context별 문장 종결, CTA 문법, error/empty/success 문법, 금지어를 분리한다. 실제 제품 카피, 공식 brand copy, illustrative sample의 provenance를 섞지 않는다.
 17. 직접 관찰되지 않았거나 구버전으로 판정된 토큰·컴포넌트·규칙·카피는 `Excluded and retired claims`에 남겨 후속 agent가 기억이나 낡은 문서를 통해 재도입하지 못하게 한다.
-18. **브랜드색 밀도를 센다.** 브랜드색이 조사한 각 화면에서 몇 번, 어느 요소에, 면(fill)으로 쓰였는지 값(텍스트·아이콘·선택 표시)으로 쓰였는지 집계한다. 화면 색의 지배권이 브랜드색과 사진 중 어느 쪽에 있는지 판정한다. 이것은 후속 단계의 **허용 목록**이 되므로, 관찰되지 않은 사용처를 채워 넣지 않는다.
-19. **슬롯을 추출한다.** 반복되는 요소를 "무엇을 하는 자리인가"로 추상화하고 원본 도메인 명사를 지운 이름을 붙여 `SLOT-NN`을 부여한다. 각 슬롯에 자리·정렬·줄 수·지표 형태(숫자/배지/아이콘)를 함께 기록한다. 이 셋이 없으면 후속 단계가 자리를 지킬 수 없다. 슬롯 이름에 원본 도메인 명사가 남아 있으면 추상화가 덜 된 것이다.
-20. **구조 배타 규칙을 찾는다.** 화면 하나가 아니라 조사한 화면 전체를 비교해, 어떤 요소가 어떤 화면에 있고 없는지와 그 차이를 가르는 기준을 `SRULE-NN`으로 기록한다. 한 화면만으로는 보이지 않는 규칙이므로 반드시 화면 간 비교를 근거로 적는다.
-21. 타이포 `weight`는 관찰된 값의 **범위와 집합**을 명시한다. 후속 단계가 이 집합 밖의 weight를 쓰지 못하도록 `Measured primitives`의 `scope_limit`에 범위를 못 박는다.
-22. 마지막에 downstream agent가 바로 사용할 수 있는 `Application brief`와 `Do / Don't`를 만든다. 모든 문장은 `REF-NN` 또는 명시적 `unresolved`에 연결한다.
+18. 마지막에 downstream agent가 바로 사용할 수 있는 `Application brief`와 `Do / Don't`를 만든다. 모든 문장은 `REF-NN` 또는 명시적 `unresolved`에 연결한다.
 
 ## 판정 기준
 
@@ -125,15 +120,6 @@ source authority와 confidence는 별개다. 제3자 문서에서 반복된 주�
 ## Density benchmarks
 | context | viewport | visible_items | row_or_card_size | chrome_share | scan_priority | source_frame | ref_ids |
 
-## Brand color density
-| color_role | value | surface_scope | usage_kind | applied_to | occurrences_per_frame | area_share | frames_observed | dominant_color_carrier | evidence_node | ref_ids |
-
-## Slot inventory
-| slot_id | source_element | slot_name_domain_free | what_the_slot_answers | position_and_alignment | line_count | metric_form | repeat_count | source_frame | evidence_node | ref_ids |
-
-## Structural exclusivity rules
-| rule_id | rule | frames_with | frames_without | discriminator | consequence_if_broken | ref_ids |
-
 ## Design grammar
 | context | layout | type | color | spacing | imagery | interaction | ref_ids |
 
@@ -205,10 +191,6 @@ source authority와 confidence는 별개다. 제3자 문서에서 반복된 주�
 - voice sample이 실제 제품·공식 브랜드·illustrative 중 어디에 속하는지 표시되고 금지 표현의 authority가 명확하다.
 - `Application brief`의 모든 적용 지침이 `preserve`, `translate`, `avoid`, `unresolved` 중 하나로 추적된다.
 - `Brand shell evidence`가 상태바, 브랜드 앵커, 하단 내비게이션을 각각 `observed` 또는 `unresolved`로 판정한다.
-- `Brand color density`가 브랜드색의 사용처를 면과 값으로 구분해 집계했고, 화면 색의 지배권을 판정했다. 관찰되지 않은 사용처가 들어 있지 않다.
-- `Slot inventory`의 모든 `SLOT-NN`에 자리·정렬·줄 수·지표 형태가 있고, 슬롯 이름에 원본 도메인 명사가 남아 있지 않다.
-- `Structural exclusivity rules`의 각 `SRULE-NN`이 **화면 간 비교**를 근거로 하며, 단일 화면 관찰로 선언되지 않았다.
-- 타이포 `weight`의 관찰 집합과 범위가 명시되어 후속 단계가 범위를 판정할 수 있다.
 - 탐색/Explore 화면이 있으면 검색·필터·지도/위치·결과 제어를 각각 `observed` 또는 `unresolved`로 판정한다.
 - supplemental 및 evidence domain 충돌 처리 결과가 명시되어 있다.
 - 구버전·surface-local·출처 불명·illustrative claim이 `Excluded and retired claims`에 격리되어 있다.
@@ -229,7 +211,4 @@ source authority와 confidence는 별개다. 제3자 문서에서 반복된 주�
 - 구버전·retired claim을 조용히 삭제해 후속 agent가 재도입할 여지를 남기기
 - 입력에 없는 웹 자료나 기억으로 레퍼런스의 빈칸 보충
 - 원본 사업의 카피와 데이터 개체를 재사용 대상으로 선언
-- 신규 도메인을 근거로 ①②③④를 이 단계에서 분류하기. 판별은 3단계 소유다
-- 원본 도메인 명사가 남은 슬롯 이름 사용
-- 관찰 빈도를 세지 않은 채 브랜드색을 "브랜드다움"으로 확대 해석하기
 - 다른 단계 산출물 또는 Penpot 노드 수정

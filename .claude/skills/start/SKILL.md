@@ -15,8 +15,6 @@ Claude Code에서는 다음 custom sub-agent를 사용한다. 각 agent는 동�
 
 `work_page`, primary `reference_pages`, `run_id`, `artifact_dir`를 모든 sub-agent prompt에 명시한다. `.agents`의 정식 계약과 이 호환 설명이 다르면 정식 계약을 우선한다.
 
-브랜드 판단 기준은 `docs/brand-inheritance.md`다. 모든 sub-agent prompt에 이 경로를 함께 전달한다. 2단계가 실측하고, 3단계가 판별하고, 4·5단계가 강제하고, 6·7단계가 감사한다.
-
 필수 입력은 `prd_path`, `work_page`, 하나의 primary를 포함한 `reference_pages`다. 모든 단계는 `.agents/skills/stage-*/SKILL.md`의 계약으로 별도 sub-agent가 수행하며 산출물은 `docs/artifacts/<run_id>/`에 격리한다.
 
 Page 이름이나 primary 레퍼런스를 추측하지 않는다. 레퍼런스·다른 팀·공용 Page를 수정하지 않는다.

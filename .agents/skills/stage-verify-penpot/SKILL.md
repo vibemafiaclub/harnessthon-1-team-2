@@ -24,12 +24,11 @@ description: 실행별 모든 산출물과 지정 Penpot Page를 읽기 전용�
 4. 채택된 `REF-NN → 전달 규칙 → decision → 실제 노드` 계보를 검사한다.
 5. 모든 `NEW-NN → 필요 → 도출 근거 → decision → 실제 노드` 계보를 검사한다.
 6. 모든 `MECH-NN → source decision → adapted decision → entry/applied/result node` 계보를 검사한다.
-7. `SLOT-NN → INH-NN → 분류 → 노드` 계보를 검사한다. 02의 모든 `SLOT-NN`이 03에서 분류됐는지, `②`가 04 명세대로의 자리·정렬·줄 수로 노드에 있는지, `③`이 화면에 없는지, `④`가 `NEW-NN`과 조합 근거를 갖는지 확인한다. 화면당 `④` 개수, 브랜드색 허용 위치 초과, weight 범위 이탈, 깨진 `SRULE-NN`을 각각 센다.
-8. signature 적용, foundation 일관성, brand shell, primary/supplemental 경계와 원본 사업 의미 누출을 검사한다.
-9. 컴포넌트·인스턴스, 의미 기반 이름, Frame 위계, Auto Layout, 토큰 일관성을 검사한다.
-10. 모든 최종 프레임을 안정화 후 `export_shape`로 다시 확인한다. 빈 영역이면 한 번 재-export한다. export backend가 실패하면 실패 로그와 안정된 live Penpot screenshot을 함께 남긴 대체 검증만 허용한다.
-11. 6단계 이중축 점수와 실제 화면이 일치하는지 확인한다.
-12. 하나라도 실패하면 전체 FAIL로 쓰고 각 실패에 단일 `owner_stage`와 재실행 지침을 지정한다.
+7. signature 적용, foundation 일관성, brand shell, primary/supplemental 경계와 원본 사업 의미 누출을 검사한다.
+8. 컴포넌트·인스턴스, 의미 기반 이름, Frame 위계, Auto Layout, 토큰 일관성을 검사한다.
+9. 모든 최종 프레임을 안정화 후 `export_shape`로 다시 확인한다. 빈 영역이면 한 번 재-export한다. export backend가 실패하면 실패 로그와 안정된 live Penpot screenshot을 함께 남긴 대체 검증만 허용한다.
+10. 6단계 이중축 점수와 실제 화면이 일치하는지 확인한다.
+11. 하나라도 실패하면 전체 FAIL로 쓰고 각 실패에 단일 `owner_stage`와 재실행 지침을 지정한다.
 
 ## 출력 형식
 
@@ -58,12 +57,6 @@ description: 실행별 모든 산출물과 지정 Penpot Page를 읽기 전용�
 ## Novel decision lineage
 | new_id | rationale | decision_id | evidence_node | status | owner_stage |
 
-## Inheritance lineage
-| slot_id | inh_id | class | decision_or_new_id | expected_position_line_count | evidence_node | status | owner_stage |
-
-## Inheritance budget checks
-| frame_name | new_grammar_count | brand_color_over_budget | weight_out_of_range | broken_structural_rules | leaked_class_3 | status | owner_stage |
-
 ## Brand-boundary checks
 | check | evidence | status | owner_stage |
 
@@ -85,13 +78,6 @@ PASS 또는 FAIL
 - primary에서 `preserve` 또는 `translate`로 판정한 상태바·브랜드 앵커·하단 내비게이션 또는 핵심 탐색 메커니즘 부재
 - supplemental 브랜드 혼입
 - 원본 사업의 IA·카피·개체를 이름만 바꾼 복제
-- 02 `Slot inventory`에 있는데 03에서 분류되지 않은 `SLOT-NN` 잔존
-- `③`으로 판정한 원본 요소가 최종 화면에 존재
-- 어느 한 화면의 `④` 개수가 2를 초과
-- 조합 근거 `REF-NN`이 없는 `④`
-- 02 `Brand color density`가 관찰하지 않은 위치에 브랜드색 적용
-- 02가 관찰한 집합 밖의 타이포 weight 사용
-- 02 `SRULE-NN`의 배타 관계를 깬 화면
 - 최종 프레임 export 누락
 - 6단계 blocker/major 잔존
 

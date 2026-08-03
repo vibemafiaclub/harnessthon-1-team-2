@@ -105,7 +105,7 @@ if (existing && MODE === "update") { /* characters·fills만 덮는다. 이름�
 | `fills`에 figma 형식(`{type:"SOLID",color:{r,g,b}}`) | **penpot 형식** `{fillColor:"#RRGGBB", fillOpacity:1}` — 인스턴스 오버라이드도 된다 |
 | `fills`/`strokes`가 배열이 아닌 **프록시** | `.map/.forEach` 금지. 인덱스 for 루프로 복사 |
 | `penpot.fonts.findByName("Inter")` → **`Inter Tight`** 반환(부분일치) | `penpot.fonts.all.find(f => f.name === X)` 정확일치 + 저작 후 `fontFamily` 되읽어 검증 |
-| 라틴 폰트엔 **한글 글리프 없음** | 한국어 카피는 `TOKENS.font.resolvedKo`(Pretendard 등) |
+| 라틴 폰트엔 **한글 글리프 없음** | 한국어 카피는 `TOKENS.font.resolvedKo` 사용. **폰트명을 코드에 박지 말고 ②가 준 값을 참조**한다 |
 | 없는 폰트는 **조용히 대체**됨(에러 없음) | 저작 전 존재 확인. 대체됐으면 `05-authored.md`에 명시 |
 | 컴포넌트 **이름 변경·자식 remove** → 플러그인 정지 | 이름·구조는 처음에 확정. 잘못 만들었으면 **새 이름으로 새로** |
 | 고정 폭 텍스트 `growType="fixed"` → 글자 잘림 | `"auto-height"` |

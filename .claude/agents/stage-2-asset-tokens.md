@@ -64,8 +64,47 @@ return p.root.children.filter(b => b.width >= 300).map(b => {      // 노이즈 
 | **R1 색** | 강조색 = HSL **채도 s>0.35 AND 명도 0.15<l<0.85** 인 것만, **면적 가중(상한 40,000)** 합산 1위. ❌ 빈도 top-N 금지 — 아이콘 조각 색이 상위를 도배해 브랜드컬러를 놓친다 |
 | **R2 1px 필터** | 스페이싱·사이즈 통계에서 **`w≤2 \|\| h≤2` 제외**. 아이콘이 벡터가 아니라 1px 사각형 수천 개인 자산이 있다 |
 | **R3 규격** | `artboard {w,h}` = 자산 화면들의 **최빈 폭** + 그 폭에서의 최빈 높이. ❌ 375/390 하드코딩 금지 |
-| **R4 폰트** | `fontPrimary`(원본) + `fontResolved`(서버 존재 확인 후 실제 쓸 것) **2필드 필수**. 정확일치로만 조회 — **`findByName("Inter")`는 `Inter Tight`를 돌려준다**. 라틴 폰트엔 한글 글리프가 없으니 `fontResolvedKo` 별도 |
+| **R4 폰트** | 아래 **폰트 조달 절차**를 따른다. `fontPrimary`(자산 실측) + `fontResolved`(실제 쓸 것) **2필드 필수**. 정확일치로만 조회 — **`findByName("Inter")`는 `Inter Tight`를 돌려준다** |
 | **R5 좌표** | 산출물엔 **board 기준 상대좌표만**. 자산 Page마다 절대좌표계가 완전히 다르다 |
+
+### R4 상세 — 🔴 폰트는 **먼저 자산에서 확인**한다. 특정 폰트를 지침에 박지 않는다
+
+> **원칙: "이 제품이 원래 쓰던 폰트가 무엇인가"를 먼저 확인한 뒤에 작업한다.**
+> `Pretendard`·`Noto Sans KR` 같은 **구체 폰트명을 지침이나 코드에 상수로 박으면 안 된다.**
+> 그건 특정 프로젝트의 *결과값*이지 *규칙*이 아니다. (심사용 PRD는 다른 폰트를 쓴다)
+
+**조달 절차 (순서대로)**
+
+| 단계 | 하는 일 | 실패 시 |
+|---|---|---|
+| 1 | **자산에서 실측** — 텍스트 노드의 `fontFamily` 빈도 1위 = `fontPrimary` | 텍스트 0개면 중단·보고 |
+| 2 | **서버 보유 확인** — `penpot.fonts.all.find(f => f.name === fontPrimary)` (정확일치) | → 3단계 |
+| 3 | **조달 시도** — 그 폰트가 **무료 배포(OFL 등)** 인지 확인하고, 맞으면 배포판을 받아 **Penpot 대시보드에 업로드**한 뒤 다시 2단계 | → 4단계 |
+| 4 | **대체 폰트 탐색** — 아래 규칙으로 **서버에서 찾는다**. 이름을 미리 정해두지 않는다 | 하나도 없으면 중단·보고 |
+
+**4단계 대체 탐색 규칙** (하드코딩 대신 **탐지**)
+- 자산 폰트의 **성격**(산세리프/세리프/둥근고딕/굵기 범위)을 먼저 적는다.
+- 본문에 **한글이 포함되는가**를 확인한다. 라틴 전용 폰트(Inter·Roboto 등)는 **한글 글리프가 없어**
+  한글이 fallback 렌더된다 → 이 경우에만 `fontResolvedKo`를 **추가로** 정한다.
+- 서버에서 후보를 **탐지**해 목록으로 남기고, 그중 성격이 가장 가까운 것을 고른 뒤 **선택 이유를 기록**한다.
+
+```js
+// 한글 지원 폰트 후보 탐지 (이름 하드코딩 금지 — 서버에서 찾는다)
+const koCandidates = penpot.fonts.all
+  .filter(f => /KR$|Korean|Han|Gothic A1|Nanum|Gowun|Jua|Dohyeon|Pretendard|Spoqa/i.test(f.name))
+  .map(f => f.name);
+// → 후보 목록을 산출물에 남기고, 선택한 것과 그 이유를 함께 적는다
+```
+
+**산출 필드**
+| 필드 | 의미 |
+|---|---|
+| `fontPrimary` | 자산 실측 원본 |
+| `fontAvailable` | 서버 보유 여부(true/false) |
+| `fontProcured` | 조달(다운로드→업로드)로 해결했는가 |
+| `fontResolved` | 실제 저작에 쓸 폰트 |
+| `fontResolvedKo` | 한글 본문용 (라틴 전용 폰트일 때만) |
+| `fontDecisionReason` | **왜 이 폰트를 골랐는지 한 줄** |
 
 ## 추출기 (그대로 실행)
 
@@ -114,17 +153,21 @@ if (shapes === 0) return { error: "scan returned 0 shapes — 실패로 간주�
 const wCnt={}; screens.forEach(s=>bump(wCnt,s.w)); const artW=Number(top(wCnt,1)[0][0]);   // R3
 const hCnt={}; screens.filter(s=>s.w===artW).forEach(s=>bump(hCnt,s.h)); const artH=Number(top(hCnt,1)[0][0]);
 
-const FALLBACK = { "Airbnb Cereal App":"Inter", "SF Pro Text":"Inter", "SF Pro Display":"Inter" };
+// ⚠️ 대체 폰트를 상수로 박지 않는다. 자산 실측 → 서버확인 → 조달 → 탐지 순서(R4)
 const primary = top(fonts,1)[0][0].split("|")[0];
 const exact = nm => penpot.fonts.all.find(f => f.name === nm) || null;    // ⚠️ findByName은 부분일치
-const rf = exact(primary) || exact(FALLBACK[primary]||"") || exact("Inter");
-const ko = (exact("Pretendard") || exact("Noto Sans KR"));
+const available = exact(primary);                       // 2단계: 서버 보유 확인
+const koCandidates = penpot.fonts.all                   // 4단계: 한글 지원 후보 "탐지"
+  .filter(f => /KR$|Korean|Han|Gothic A1|Nanum|Gowun|Jua|Dohyeon|Pretendard|Spoqa/i.test(f.name))
+  .map(f => f.name);
 
 return { page:PAGE_NAME, shapes, texts, artboard:{w:artW,h:artH}, screens,
   color:{ accent: top(accArea,3).map(([hex,a])=>({hex,areaScore:Math.round(a)})),
           neutral: top(neutral,8), divider: top(strokeCnt,5) },
-  font:{ fontPrimary:primary, fontResolved:rf.name, fontResolvedKo:ko?ko.name:null,
-         substituted: primary !== rf.name, weights: rf.variants.map(v=>v.fontWeight), scale: top(fonts,14) },
+  font:{ fontPrimary:primary, fontAvailable: !!available,
+         weights: available ? available.variants.map(v=>v.fontWeight) : [],
+         koCandidates,                                   // 조달/대체 판단은 R4 절차로 사람·에이전트가 결정
+         scale: top(fonts,14) },
   radius: top(radii,8), spacing:{ gaps: top(gaps,10), rowHeights: top(heights,8) } };
 ```
 
